@@ -1,0 +1,29 @@
+global_defs {
+    default_interface {{.keepalivedInterface}}
+}
+
+vrrp_instance VI_1 {
+    interface {{.keepalivedInterface}}
+
+    state {{.keepalivedState}}
+    virtual_router_id {{.keepalivedRouterId}}
+    priority {{.keepalivedPriority}}
+    nopreempt
+
+    unicast_peer {
+        {{- range .keepalivedUnicastPeers}}
+        {{.}}
+        {{- end}}
+    }
+
+    virtual_ipaddress {
+        {{- range .keepalivedVirtualIps}}
+        {{.}}
+        {{- end}}
+    }
+
+    authentication {
+        auth_type PASS
+        auth_pass {{.keepalivedPassword}}
+    }
+}
