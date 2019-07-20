@@ -8,7 +8,7 @@ MAINTAINER "rancococ" <rancococ@qq.com>
 ARG ALPINE_VERSION=v3.9
 ARG KEEPALIVED_VERSION=2.0.17
 ARG GOTMPL_VERSION=v1.0.1
-ARG KEEPALIVED_URL=http://keepalived.org/software/keepalived-${KEEPALIVED_VERSION}.tar.gz
+ARG KEEPALIVED_URL=https://mirrors.huaweicloud.com/keepalived/keepalived-${KEEPALIVED_VERSION}.tar.gz
 ARG GOTMPL_URL=https://github.com/rancococ/gotmpl/releases/download/${GOTMPL_VERSION}/gotmpl-Linux-x86_64
 
 # copy script
