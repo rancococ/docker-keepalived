@@ -32,7 +32,7 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     cd - && mkdir -p /etc/keepalived && \
     \rm -f /tmp/keepalived.tar.gz && \
     \rm -rf /tmp/keepalived-sources && \
-    apk --no-cache del autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev
+    apk --no-cache del autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
     \rm -rf /var/cache/apk/* && \
     echo "Asia/Shanghai" > /etc/timezone && \
     \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
