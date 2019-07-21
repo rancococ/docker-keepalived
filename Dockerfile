@@ -17,7 +17,7 @@ COPY docker-startup.sh /
 COPY docker-process.sh /
 COPY keepalived.tmpl /etc/keepalived/
 
-# install repositories and packages : curl bash openssh wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
+# install repositories and packages : curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
 RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttps://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/community" > /etc/apk/repositories && \
     apk update && \
     apk --no-cache add curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu && \
