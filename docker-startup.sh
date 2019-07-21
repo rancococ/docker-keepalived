@@ -79,7 +79,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     done
     printf "\t],\n"                                                    >> ${CONTAINER_TMP_DIR}/keepalived.json
     if [ -n "${KEEPALIVED_NOTIFY}" ]; then
-        printf "\t\"keepalivedNotify\": \"${KEEPALIVED_NOTIFY}\",\n"   >> ${CONTAINER_TMP_DIR}/keepalived.json
+        printf "\t\"keepalivedNotify\": \"notify ${KEEPALIVED_NOTIFY}\",\n"   >> ${CONTAINER_TMP_DIR}/keepalived.json
         chmod +x ${KEEPALIVED_NOTIFY}
     else
         printf "\t\"keepalivedNotify\": \"\",\n"                       >> ${CONTAINER_TMP_DIR}/keepalived.json
