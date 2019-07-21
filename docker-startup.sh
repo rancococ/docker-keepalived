@@ -55,8 +55,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     printf ""                                                          > ${CONTAINER_TMP_DIR}/keepalived.json
     printf "{\n"                                                       >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedInterface\": \"${KEEPALIVED_INTERFACE}\",\n" >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedScriptUser\": \"keepalived\",\n"             >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedScriptGroup\": \"keepalived\",\n"            >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedState\": \"${KEEPALIVED_STATE}\",\n"         >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedRouterId\": ${KEEPALIVED_ROUTER_ID},\n"      >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedPriority\": ${KEEPALIVED_PRIORITY},\n"       >> ${CONTAINER_TMP_DIR}/keepalived.json
