@@ -15,6 +15,7 @@ ARG GOTMPL_URL=https://github.com/rancococ/gotmpl/releases/download/${GOTMPL_VER
 COPY docker-entrypoint.sh /
 COPY docker-startup.sh /
 COPY docker-process.sh /
+COPY docker-finish.sh /
 COPY keepalived.tmpl /etc/keepalived/
 
 # install repositories and packages : curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
@@ -40,7 +41,8 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     chmod +x /usr/local/bin/gotmpl && \
     chmod +x /docker-entrypoint.sh && \
     chmod +x /docker-startup.sh && \
-    chmod +x /docker-process.sh
+    chmod +x /docker-process.sh && \
+    chmod +x /docker-finish.sh
 
 # set environment
 ENV LANG C.UTF-8

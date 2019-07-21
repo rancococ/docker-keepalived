@@ -13,5 +13,10 @@ if [ -x "/docker-process.sh" ]; then
   bash "/docker-process.sh"
 fi
 
+# exec docker-finish.sh
+if [ -x "/docker-finish.sh" ]; then
+  bash "/docker-finish.sh"
+fi
+
 # exec some command
 exec "$@"
