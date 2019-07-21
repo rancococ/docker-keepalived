@@ -17,6 +17,7 @@ COPY docker-startup.sh /
 COPY docker-process.sh /
 COPY docker-finish.sh /
 COPY keepalived.tmpl /etc/keepalived/
+COPY notify.sh /container/service/
 
 # install repositories and packages : curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
 RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttps://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/community" > /etc/apk/repositories && \
@@ -42,7 +43,8 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     chmod +x /docker-entrypoint.sh && \
     chmod +x /docker-startup.sh && \
     chmod +x /docker-process.sh && \
-    chmod +x /docker-finish.sh
+    chmod +x /docker-finish.sh && \
+    chmod +x /container/service/notify.sh
 
 # set environment
 ENV LANG C.UTF-8

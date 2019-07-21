@@ -25,6 +25,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     if [ -z "${KEEPALIVED_PASSWORD}" ]; then
         KEEPALIVED_PASSWORD="abcd1234"
     fi
+    if [ -z "${KEEPALIVED_NOTIFY}" ]; then
+        KEEPALIVED_NOTIFY="/container/service/notify.sh"
+    fi
     # peers
     peers_tmp=${KEEPALIVED_UNICAST_PEERS//,/ };
     peers_arr=($peers_tmp);
@@ -78,6 +81,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     if [ -n "${KEEPALIVED_NOTIFY}" ]; then
         printf "\t\"keepalivedNotify\": \"${KEEPALIVED_NOTIFY}\",\n"   >> ${CONTAINER_TMP_DIR}/keepalived.json
         chmod +x ${KEEPALIVED_NOTIFY}
+    else
+        printf "\t\"keepalivedNotify\": \"\",\n"                       >> ${CONTAINER_TMP_DIR}/keepalived.json
     fi
     printf "\t\"keepalivedPassword\": \"${KEEPALIVED_PASSWORD}\"\n"    >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "}\n"                                                       >> ${CONTAINER_TMP_DIR}/keepalived.json

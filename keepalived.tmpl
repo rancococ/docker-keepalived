@@ -26,4 +26,6 @@ vrrp_instance VI_1 {
         auth_type PASS
         auth_pass {{.keepalivedPassword}}
     }
+
+    {{.keepalivedNotify}}
 }
