@@ -8,6 +8,7 @@ CONTAINER_TMP_DIR=${CONTAINER_DIR}/tmp
 FIRST_START_DONE="${CONTAINER_RUN_DIR}/docker-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
+    echo "The container first start."
     # check and set default values
     if [ -z "${KEEPALIVED_INTERFACE}" ]; then
         KEEPALIVED_INTERFACE="ens33"
@@ -78,8 +79,16 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     printf "\t\"keepalivedPassword\": \"${KEEPALIVED_PASSWORD}\"\n"    >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "}\n"                                                       >> ${CONTAINER_TMP_DIR}/keepalived.json
 
+    echo "generate keepalived.json file success."
+    cat ${CONTAINER_TMP_DIR}/keepalived.json
+    echo ""
+
     # generate /etc/keepalived/keepalived.conf
     gotmpl --template="f:/etc/keepalived/keepalived.tmpl" --jsondata="f:${CONTAINER_TMP_DIR}/keepalived.json" --outfile="/etc/keepalived/keepalived.conf"
+    echo "generate keepalived.conf file success."
+    cat /etc/keepalived/keepalived.conf
+    echo ""
+
     touch $FIRST_START_DONE
 fi
 
