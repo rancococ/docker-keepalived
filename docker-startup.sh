@@ -44,6 +44,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
         exit 1
     fi
 
+    mkdir -p ${CONTAINER_RUN_DIR}
+    mkdir -p ${CONTAINER_TMP_DIR}
+
     # generate ${CONTAINER_TMP_DIR}/keepalived.json
     touch ${CONTAINER_TMP_DIR}/keepalived.json
     printf ""                                                          > ${CONTAINER_TMP_DIR}/keepalived.json
