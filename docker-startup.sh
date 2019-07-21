@@ -92,6 +92,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     cat /etc/keepalived/keepalived.conf
     echo ""
 
+    # important
+    chmod 644 /etc/keepalived/keepalived.conf
+
     touch $FIRST_START_DONE
 fi
 
