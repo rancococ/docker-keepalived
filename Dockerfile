@@ -23,7 +23,7 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     apk --no-cache add curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu && \
     apk --no-cache add ipset iptables libnfnetlink libnl3 openssl && \
     apk --no-cache add autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
-    curl -o /tmp/keepalived.tar.gz -SL ${KEEPALIVED_URL} && \
+    curl --create-dirs -fsSLo /tmp/keepalived.tar.gz ${KEEPALIVED_URL} && \
     mkdir -p /tmp/keepalived-sources && \
     tar -xzf /tmp/keepalived.tar.gz --strip 1 -C /tmp/keepalived-sources && \
     cd /tmp/keepalived-sources && \
@@ -36,7 +36,7 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     \rm -rf /var/cache/apk/* && \
     echo "Asia/Shanghai" > /etc/timezone && \
     \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    wget -c -O /usr/local/bin/gotmpl --no-cookies --no-check-certificate "${GOTMPL_URL}" && \
+    curl --create-dirs -fsSLo /usr/local/bin/gotmpl "${GOTMPL_URL}" && \
     chmod +x /usr/local/bin/gotmpl && \
     chmod +x /docker-entrypoint.sh
 
