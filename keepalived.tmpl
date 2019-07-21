@@ -1,5 +1,6 @@
 global_defs {
     default_interface {{.keepalivedInterface}}
+    script_user {{.keepalivedScriptUser}} {{.keepalivedScriptGroup}}
 }
 
 vrrp_instance VI_1 {

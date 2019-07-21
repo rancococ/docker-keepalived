@@ -39,12 +39,14 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     echo "Asia/Shanghai" > /etc/timezone && \
     \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     curl --create-dirs -fsSLo /usr/local/bin/gotmpl "${GOTMPL_URL}" && \
+    addgroup -g 1000 keepalived && adduser -u 1000 -G keepalived -D -H -s /sbin/nologin keepalived && \
+    chown keepalived:keepalived /container/service/notify.sh && \
+    chmod +x /container/service/notify.sh && \
     chmod +x /usr/local/bin/gotmpl && \
     chmod +x /docker-entrypoint.sh && \
     chmod +x /docker-startup.sh && \
     chmod +x /docker-process.sh && \
-    chmod +x /docker-finish.sh && \
-    chmod +x /container/service/notify.sh
+    chmod +x /docker-finish.sh
 
 # set environment
 ENV LANG C.UTF-8
