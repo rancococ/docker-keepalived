@@ -12,3 +12,6 @@ fi
 if [ -x "/docker-process.sh" ]; then
   . "/docker-process.sh"
 fi
+
+# exec some command
+exec "$@"

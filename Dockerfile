@@ -38,7 +38,9 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     curl --create-dirs -fsSLo /usr/local/bin/gotmpl "${GOTMPL_URL}" && \
     chmod +x /usr/local/bin/gotmpl && \
-    chmod +x /docker-entrypoint.sh
+    chmod +x /docker-entrypoint.sh && \
+    chmod +x /docker-startup.sh && \
+    chmod +x /docker-process.sh
 
 # set environment
 ENV LANG C.UTF-8
