@@ -1,13 +1,13 @@
-# from frolvlad/alpine-glibc:alpine-3.9
-FROM frolvlad/alpine-glibc:alpine-3.9
+# from frolvlad/alpine-glibc:alpine-3.11
+FROM frolvlad/alpine-glibc:alpine-3.11
 
 # maintainer
 MAINTAINER "rancococ" <rancococ@qq.com>
 
 # set arg info
-ARG ALPINE_VERSION=v3.9
-ARG KEEPALIVED_VERSION=2.0.17
-ARG GOTMPL_VERSION=v1.0.1
+ARG ALPINE_VERSION=v3.11
+ARG KEEPALIVED_VERSION=2.0.20
+ARG GOTMPL_VERSION=v1.0.2
 ARG KEEPALIVED_URL=https://mirrors.huaweicloud.com/keepalived/keepalived-${KEEPALIVED_VERSION}.tar.gz
 ARG GOTMPL_URL=https://github.com/rancococ/gotmpl/releases/download/${GOTMPL_VERSION}/gotmpl-Linux-x86_64
 

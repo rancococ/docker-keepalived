@@ -3,4 +3,4 @@
 #### 项目介绍
 docker-keepalived
 
-base on alpine 3.9
+base on alpine 3.11

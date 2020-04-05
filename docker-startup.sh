@@ -122,5 +122,3 @@ for vip in ${vips_arr[@]}; do
 
     ip addr del ${IP} dev ${IP_INTERFACE} || true
 done
-
-exit 0
