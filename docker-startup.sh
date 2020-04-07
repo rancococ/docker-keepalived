@@ -14,7 +14,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
         KEEPALIVED_INTERFACE="ens33"
     fi
     if [ -z "${KEEPALIVED_STATE}" ]; then
-        KEEPALIVED_STATE="MASTER"
+        KEEPALIVED_STATE="BACKUP"
     fi
     if [ -z "${KEEPALIVED_ROUTER_ID}" ]; then
         KEEPALIVED_ROUTER_ID="100"
