@@ -6,28 +6,24 @@ global_defs {
 
 vrrp_instance VI_1 {
     interface {{.keepalivedInterface}}
-
     state {{.keepalivedState}}
     virtual_router_id {{.keepalivedRouterId}}
     priority {{.keepalivedPriority}}
     nopreempt
-
+    unicast_src_ip {{.keepalivedUnicastSrcIp}}
     unicast_peer {
         {{- range .keepalivedUnicastPeers}}
         {{.}}
         {{- end}}
     }
-
     virtual_ipaddress {
         {{- range .keepalivedVirtualIps}}
         {{.}}
         {{- end}}
     }
-
     authentication {
         auth_type PASS
         auth_pass {{.keepalivedPassword}}
     }
-
     {{.keepalivedNotify}}
 }

@@ -58,6 +58,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     printf "\t\"keepalivedState\": \"${KEEPALIVED_STATE}\",\n"                                   >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedRouterId\": ${KEEPALIVED_ROUTER_ID},\n"                                >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedPriority\": ${KEEPALIVED_PRIORITY},\n"                                 >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedUnicastSrcIp\": ${KEEPALIVED_UNICAST_SRC_IP},\n"                       >> ${CONTAINER_TMP_DIR}/keepalived.json
     printf "\t\"keepalivedUnicastPeers\": [\n"                                                   >> ${CONTAINER_TMP_DIR}/keepalived.json
     for ((i=0;i<${#peers_arr[@]};i++)); do
         num=$(echo $((${#peers_arr[@]}-1)))
@@ -72,9 +73,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     for ((i=0;i<${#vips_arr[@]};i++)); do
         num=$(echo $((${#vips_arr[@]}-1)))
         if [ "$i" == ${num} ]; then
-                printf "\t\t\"${vips_arr[$i]} label ${KEEPALIVED_INTERFACE}:1\"\n"               >> ${CONTAINER_TMP_DIR}/keepalived.json
+                printf "\t\t\"${vips_arr[$i]} dev ${KEEPALIVED_INTERFACE} label ${KEEPALIVED_INTERFACE}:1\"\n"          >> ${CONTAINER_TMP_DIR}/keepalived.json
         else
-                printf "\t\t\"${vips_arr[$i]} label ${KEEPALIVED_INTERFACE}:1\",\n"              >> ${CONTAINER_TMP_DIR}/keepalived.json
+                printf "\t\t\"${vips_arr[$i]} dev ${KEEPALIVED_INTERFACE} label ${KEEPALIVED_INTERFACE}:1\",\n"         >> ${CONTAINER_TMP_DIR}/keepalived.json
         fi
     done
     printf "\t],\n"                                                                              >> ${CONTAINER_TMP_DIR}/keepalived.json
