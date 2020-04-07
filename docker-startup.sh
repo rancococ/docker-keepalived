@@ -52,40 +52,40 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
     # generate ${CONTAINER_TMP_DIR}/keepalived.json
     touch ${CONTAINER_TMP_DIR}/keepalived.json
-    printf ""                                                          > ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "{\n"                                                       >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedInterface\": \"${KEEPALIVED_INTERFACE}\",\n" >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedState\": \"${KEEPALIVED_STATE}\",\n"         >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedRouterId\": ${KEEPALIVED_ROUTER_ID},\n"      >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedPriority\": ${KEEPALIVED_PRIORITY},\n"       >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedUnicastPeers\": [\n"                         >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf ""                                                                                     > ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "{\n"                                                                                 >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedInterface\": \"${KEEPALIVED_INTERFACE}\",\n"                           >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedState\": \"${KEEPALIVED_STATE}\",\n"                                   >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedRouterId\": ${KEEPALIVED_ROUTER_ID},\n"                                >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedPriority\": ${KEEPALIVED_PRIORITY},\n"                                 >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedUnicastPeers\": [\n"                                                   >> ${CONTAINER_TMP_DIR}/keepalived.json
     for ((i=0;i<${#peers_arr[@]};i++)); do
         num=$(echo $((${#peers_arr[@]}-1)))
         if [ "$i" == ${num} ]; then
-                printf "\t\t\"${peers_arr[$i]}\"\n"                    >> ${CONTAINER_TMP_DIR}/keepalived.json
+                printf "\t\t\"${peers_arr[$i]}\"\n"                                              >> ${CONTAINER_TMP_DIR}/keepalived.json
         else
-                printf "\t\t\"${peers_arr[$i]}\",\n"                   >> ${CONTAINER_TMP_DIR}/keepalived.json
+                printf "\t\t\"${peers_arr[$i]}\",\n"                                             >> ${CONTAINER_TMP_DIR}/keepalived.json
         fi
     done
-    printf "\t],\n"                                                    >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "\t\"keepalivedVirtualIps\": [\n"                           >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t],\n"                                                                              >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedVirtualIps\": [\n"                                                     >> ${CONTAINER_TMP_DIR}/keepalived.json
     for ((i=0;i<${#vips_arr[@]};i++)); do
         num=$(echo $((${#vips_arr[@]}-1)))
         if [ "$i" == ${num} ]; then
-                printf "\t\t\"${vips_arr[$i]}\"\n"                     >> ${CONTAINER_TMP_DIR}/keepalived.json
+                printf "\t\t\"${vips_arr[$i]} label ${KEEPALIVED_INTERFACE}:1\"\n"               >> ${CONTAINER_TMP_DIR}/keepalived.json
         else
-                printf "\t\t\"${vips_arr[$i]}\",\n"                    >> ${CONTAINER_TMP_DIR}/keepalived.json
+                printf "\t\t\"${vips_arr[$i]} label ${KEEPALIVED_INTERFACE}:1\",\n"              >> ${CONTAINER_TMP_DIR}/keepalived.json
         fi
     done
-    printf "\t],\n"                                                    >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t],\n"                                                                              >> ${CONTAINER_TMP_DIR}/keepalived.json
     if [ -n "${KEEPALIVED_NOTIFY}" ]; then
-        printf "\t\"keepalivedNotify\": \"notify ${KEEPALIVED_NOTIFY}\",\n"   >> ${CONTAINER_TMP_DIR}/keepalived.json
+        printf "\t\"keepalivedNotify\": \"notify ${KEEPALIVED_NOTIFY}\",\n"                      >> ${CONTAINER_TMP_DIR}/keepalived.json
         chmod +x ${KEEPALIVED_NOTIFY}
     else
-        printf "\t\"keepalivedNotify\": \"\",\n"                       >> ${CONTAINER_TMP_DIR}/keepalived.json
+        printf "\t\"keepalivedNotify\": \"\",\n"                                                 >> ${CONTAINER_TMP_DIR}/keepalived.json
     fi
-    printf "\t\"keepalivedPassword\": \"${KEEPALIVED_PASSWORD}\"\n"    >> ${CONTAINER_TMP_DIR}/keepalived.json
-    printf "}\n"                                                       >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "\t\"keepalivedPassword\": \"${KEEPALIVED_PASSWORD}\"\n"                              >> ${CONTAINER_TMP_DIR}/keepalived.json
+    printf "}\n"                                                                                 >> ${CONTAINER_TMP_DIR}/keepalived.json
 
     echo "generate keepalived.json file success."
     cat ${CONTAINER_TMP_DIR}/keepalived.json
