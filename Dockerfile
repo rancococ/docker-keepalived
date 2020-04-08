@@ -16,6 +16,7 @@ COPY docker-entrypoint.sh /
 COPY docker-startup.sh /
 COPY docker-process.sh /
 COPY docker-finish.sh /
+COPY delete-vips.sh /
 COPY keepalived.tmpl /etc/keepalived/
 COPY notify.sh /container/service/
 
@@ -44,7 +45,8 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     chmod +x /docker-entrypoint.sh && \
     chmod +x /docker-startup.sh && \
     chmod +x /docker-process.sh && \
-    chmod +x /docker-finish.sh
+    chmod +x /docker-finish.sh && \
+    chmod +x /delete-vips.sh
 
 # set environment
 ENV LANG C.UTF-8
