@@ -15,7 +15,7 @@ fi
 # current user is root
 if [ "$(id -u)" = "0" ]; then
     # start keepalived
-    exec /usr/local/sbin/keepalived -f /etc/keepalived/keepalived-new.conf --dont-fork --log-console ${KEEPALIVED_COMMAND_LINE_ARGUMENTS}
+    exec /usr/local/sbin/keepalived -f /etc/keepalived/keepalived.conf --dont-fork --log-console ${KEEPALIVED_COMMAND_LINE_ARGUMENTS}
 fi
 
 # exec some command
