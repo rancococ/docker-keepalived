@@ -2,15 +2,27 @@
 
 set -e
 
-# exec docker-startup.sh
-if [ -x "/docker-startup.sh" ]; then
-    . "/docker-startup.sh"
-    . "/delete-vips.sh"
+# exec keepalived-setup.sh
+if [ -x "/keepalived-setup.sh" ]; then
+    . "/keepalived-setup.sh"
 fi
 
-# exec docker-process.sh
-if [ -x "/docker-process.sh" ]; then
-    . "/docker-process.sh"
+# exec keepalived-clean.sh
+if [ -x "/keepalived-clean.sh" ]; then
+    . "/keepalived-clean.sh"
+fi
+
+# current user is root
+if [ "$(id -u)" = "0" ]; then
+    #echo -n "waiting config file /etc/keepalived/keepalived.conf"
+    #while [ ! -e "/etc/keepalived/keepalived.conf" ]
+    #do
+    #    echo -n "."
+    #    sleep 0.1
+    #done
+    #echo "ok"
+    # start keepalived
+    exec /usr/local/sbin/keepalived -f /etc/keepalived/keepalived-new.conf --dont-fork --log-console ${KEEPALIVED_COMMAND_LINE_ARGUMENTS}
 fi
 
 # exec some command

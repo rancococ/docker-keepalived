@@ -26,7 +26,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
         KEEPALIVED_PASSWORD="abcd1234"
     fi
     if [ -z "${KEEPALIVED_NOTIFY}" ]; then
-        KEEPALIVED_NOTIFY="/container/service/notify.sh"
+        KEEPALIVED_NOTIFY="/container/service/keepalived-notify.sh"
     fi
     # peers
     peers_tmp=${KEEPALIVED_UNICAST_PEERS//,/ };
@@ -92,14 +92,14 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     cat ${CONTAINER_TMP_DIR}/keepalived.json
     echo ""
 
-    # generate /etc/keepalived/keepalived.conf
-    gotmpl --template="f:/etc/keepalived/keepalived.tmpl" --jsondata="f:${CONTAINER_TMP_DIR}/keepalived.json" --outfile="/etc/keepalived/keepalived.conf"
+    # generate /etc/keepalived/keepalived-new.conf
+    gotmpl --template="f:/etc/keepalived/keepalived.tmpl" --jsondata="f:${CONTAINER_TMP_DIR}/keepalived.json" --outfile="/etc/keepalived/keepalived-new.conf"
     echo "generate keepalived.conf file success."
-    cat /etc/keepalived/keepalived.conf
+    cat /etc/keepalived/keepalived-new.conf
     echo ""
 
     # important
-    chmod 644 /etc/keepalived/keepalived.conf
+    chmod 644 /etc/keepalived/keepalived-new.conf
 
     touch $FIRST_START_DONE
 fi
