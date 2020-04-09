@@ -15,8 +15,8 @@ ARG GOTMPL_URL=https://github.com/rancococ/gotmpl/releases/download/${GOTMPL_VER
 COPY docker-entrypoint.sh /
 COPY keepalived-setup.sh /
 COPY keepalived-clean.sh /
+COPY keepalived-notify.sh /
 COPY keepalived.tmpl /etc/keepalived/
-COPY keepalived-notify.sh /container/service/
 
 # install repositories and packages : curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
 RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttps://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/community" > /etc/apk/repositories && \
@@ -38,11 +38,11 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     echo "Asia/Shanghai" > /etc/timezone && \
     \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     curl --create-dirs -fsSLo /usr/local/bin/gotmpl "${GOTMPL_URL}" && \
-    chmod +x /container/service/keepalived-notify.sh && \
     chmod +x /usr/local/bin/gotmpl && \
     chmod +x /docker-entrypoint.sh && \
     chmod +x /keepalived-setup.sh && \
-    chmod +x /keepalived-clean.sh
+    chmod +x /keepalived-clean.sh && \
+    chmod +x /keepalived-notify.sh
 
 # set environment
 ENV LANG C.UTF-8
