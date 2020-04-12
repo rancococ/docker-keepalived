@@ -2,6 +2,7 @@
 
 set -e
 
+KEEPALIVED_TMPL="/etc/keepalived/keepalived.tmpl"
 KEEPALIVED_JSON="/etc/keepalived/keepalived.json"
 KEEPALIVED_CONF="/etc/keepalived/keepalived.conf"
 
@@ -90,13 +91,13 @@ if [ ! -e "${KEEPALIVED_CONF}" ]; then
     echo ""
 
     # generate ${KEEPALIVED_CONF}
-    gotmpl --template="f:/etc/keepalived/keepalived.tmpl" --jsondata="f:${KEEPALIVED_JSON}" --outfile="${KEEPALIVED_CONF}"
+    gotmpl --template="f:${KEEPALIVED_TMPL}" --jsondata="f:${KEEPALIVED_JSON}" --outfile="${KEEPALIVED_CONF}"
     # important
     chmod 644 ${KEEPALIVED_CONF}
     echo "generate ${KEEPALIVED_CONF} success."
     cat ${KEEPALIVED_CONF}
     echo "remove temp file"
-    \rm -rf /etc/keepalived/keepalived.tmpl
+    \rm -rf ${KEEPALIVED_TMPL}
     \rm -rf ${KEEPALIVED_JSON}
     echo ""
 fi
