@@ -2,6 +2,8 @@
 
 set -e
 
+echo "run the script keepalived-clean.sh"
+
 # try to delete virtual ips from interface
 vips_tmp=${KEEPALIVED_VIRTUAL_IPS//,/ };
 vips_arr=($vips_tmp);
@@ -21,3 +23,7 @@ for vip in ${vips_arr[@]}; do
 
     ip addr del ${IP} dev ${IP_INTERFACE} || true
 done
+
+# try to delete keepalived.pid and vrrp.pid
+rm -rf /var/run/keepalived.pid
+rm -rf /var/run/vrrp.pid

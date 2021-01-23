@@ -2,6 +2,8 @@
 
 set -e
 
+echo "run the script keepalived-setup.sh"
+
 KEEPALIVED_TMPL="/etc/keepalived/keepalived.tmpl"
 KEEPALIVED_JSON="/etc/keepalived/keepalived.json"
 KEEPALIVED_CONF="/etc/keepalived/keepalived.conf"
