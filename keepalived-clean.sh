@@ -5,23 +5,13 @@ set -e
 echo "run the script keepalived-clean.sh"
 
 # try to delete virtual ips from interface
-vips_tmp=${KEEPALIVED_VIRTUAL_IPS//,/ };
-vips_arr=($vips_tmp);
-for vip in ${vips_arr[@]}; do
-    IP=$(echo ${vip})
-    IP_INFO=$(ip addr list | grep ${IP}) || continue
-    IP_V6=$(echo "${IP_INFO}" | grep "inet6") || true
-
-    # ipv4
-    if [ -z "${IP_V6}" ]; then
-        IP_INTERFACE=$(echo "${IP_INFO}" |  awk '{print $5}')
-    # ipv6
-    else
-        echo "skipping address: ${IP} - ipv6 not supported yet :("
-        continue
+OLD_IFS="$IFS" && IFS="," && VIPS_ARR=(${KEEPALIVED_VIRTUAL_IPS}) && VIPS_LEN=${#VIPS_ARR[@]} && IFS="$OLD_IFS"
+for idx in ${!VIPS_ARR[@]}; do
+    OLD_IFS="$IFS" && IFS=":" && DEV_IP=(${VIPS_ARR[${idx}]}) && DEV_LEN=${#DEV_IP[@]} && IFS="$OLD_IFS"
+    if [ ${DEV_LEN} -ne 2 ]; then
+        continue;
     fi
-
-    ip addr del ${IP} dev ${IP_INTERFACE} || true
+    ip addr del ${DEV_IP[1]} dev ${DEV_IP[0]} || true
 done
 
 # try to delete keepalived.pid and vrrp.pid
