@@ -17,7 +17,7 @@ COPY keepalived-notify.sh /
 COPY keepalived.tmpl /etc/keepalived/
 
 # install repositories and packages : busybox-suid curl bash bash-completion wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
-RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VER}/main\nhttps://mirrors.huaweicloud.com/alpine/${ALPINE_VER}/community" > /etc/apk/repositories && \
+RUN echo -e "https://mirrors.aliyun.com/alpine/${ALPINE_VER}/main\nhttps://mirrors.aliyun.com/alpine/${ALPINE_VER}/community" > /etc/apk/repositories && \
     apk update && apk --no-cache add busybox-suid curl bash bash-completion wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu && \
     apk --no-cache add ipset iptables libnfnetlink libnl3 openssl && \
     apk --no-cache add autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
