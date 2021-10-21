@@ -1,15 +1,13 @@
-# from frolvlad/alpine-glibc:alpine-3.11
-FROM frolvlad/alpine-glibc:alpine-3.11
+# from frolvlad/alpine-glibc:alpine-3.14
+FROM frolvlad/alpine-glibc:alpine-3.14
 
 # maintainer
 MAINTAINER "rancococ" <rancococ@qq.com>
 
 # set arg info
-ARG ALPINE_VERSION=v3.11
-ARG KEEPALIVED_VERSION=2.0.20
-ARG GOTMPL_VERSION=v1.0.2
-ARG KEEPALIVED_URL=https://mirrors.huaweicloud.com/keepalived/keepalived-${KEEPALIVED_VERSION}.tar.gz
-ARG GOTMPL_URL=https://github.com/rancococ/gotmpl/releases/download/${GOTMPL_VERSION}/gotmpl-linux-x86-64
+ARG ALPINE_VER=v3.14
+ARG KEEPALIVED_URL=https://mirrors.huaweicloud.com/keepalived/keepalived-2.0.20.tar.gz
+ARG GOTMPL_URL=https://github.com/rancococ/gotmpl/releases/download/v1.0.2/gotmpl-linux-x86-64
 
 # copy script
 COPY docker-entrypoint.sh /
@@ -18,10 +16,9 @@ COPY keepalived-clean.sh /
 COPY keepalived-notify.sh /
 COPY keepalived.tmpl /etc/keepalived/
 
-# install repositories and packages : curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
-RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttps://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/community" > /etc/apk/repositories && \
-    apk update && \
-    apk --no-cache add curl bash wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu && \
+# install repositories and packages : busybox-suid curl bash bash-completion openssh wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
+RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VER}/main\nhttps://mirrors.huaweicloud.com/alpine/${ALPINE_VER}/community" > /etc/apk/repositories && \
+    apk update && apk add busybox-suid curl bash bash-completion openssh wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu && \
     apk --no-cache add ipset iptables libnfnetlink libnl3 openssl && \
     apk --no-cache add autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
     curl --create-dirs -fsSLo /tmp/keepalived.tar.gz ${KEEPALIVED_URL} && \
@@ -35,8 +32,7 @@ RUN echo -e "https://mirrors.huaweicloud.com/alpine/${ALPINE_VERSION}/main\nhttp
     \rm -rf /tmp/keepalived-sources && \
     apk --no-cache del autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
     \rm -rf /var/cache/apk/* && \
-    echo "Asia/Shanghai" > /etc/timezone && \
-    \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     curl --create-dirs -fsSLo /usr/local/bin/gotmpl "${GOTMPL_URL}" && \
     chmod +x /usr/local/bin/gotmpl && \
     chmod +x /docker-entrypoint.sh && \
