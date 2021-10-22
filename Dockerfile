@@ -1,5 +1,5 @@
-# from registry.cn-hangzhou.aliyuncs.com/rancococ/alpine:3.14.1
-FROM registry.cn-hangzhou.aliyuncs.com/rancococ/alpine:3.14.1
+# from registry.cn-hangzhou.aliyuncs.com/rancococ/alpine:3.13.1
+FROM registry.cn-hangzhou.aliyuncs.com/rancococ/alpine:3.13.1
 
 # maintainer
 MAINTAINER "rancococ" <rancococ@qq.com>
@@ -17,8 +17,8 @@ COPY keepalived-notify.sh /
 COPY keepalived.tmpl /etc/keepalived/
 
 # install repositories and packages : busybox-suid curl bash bash-completion wget net-tools gettext zip unzip tar tzdata ncurses procps ttf-dejavu
-RUN apk update && apk --no-cache add ipset iptables libnfnetlink libnl3 openssl && \
-    apk --no-cache add autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
+RUN apk update && apk --no-cache add ipset iptables libnftnl libnfnetlink libnl3 openssl && \
+    apk --no-cache add --virtual buildpacks autoconf gcc ipset-dev iptables-dev libnftnl-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
     curl --create-dirs -fsSLo /tmp/keepalived.tar.gz ${KEEPALIVED_URL} && \
     mkdir -p /tmp/keepalived-sources && \
     tar -xzf /tmp/keepalived.tar.gz --strip 1 -C /tmp/keepalived-sources && \
@@ -28,7 +28,7 @@ RUN apk update && apk --no-cache add ipset iptables libnfnetlink libnl3 openssl 
     cd - && mkdir -p /etc/keepalived && \
     \rm -f /tmp/keepalived.tar.gz && \
     \rm -rf /tmp/keepalived-sources && \
-    apk --no-cache del autoconf gcc ipset-dev iptables-dev libnfnetlink-dev libnl3-dev make musl-dev openssl-dev && \
+    apk --no-cache del buildpacks && \
     \rm -rf /var/cache/apk/* && \
     curl --create-dirs -fsSLo /usr/local/bin/gotmpl "${GOTMPL_URL}" && \
     chmod +x /usr/local/bin/gotmpl && \
