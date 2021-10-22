@@ -28,11 +28,12 @@ docker run -it --rm --network=host \
 -e "KEEPALIVED_NODE_PREFIX=node" \
 -e "KEEPALIVED_NODE_STATES=BACKUP,BACKUP" \
 -e "KEEPALIVED_NODE_PRIORITYS=100,90" \
--e "KEEPALIVED_NODE_IPS=192.168.8.52,192.168.8.53" \
+-e "KEEPALIVED_NODE_IPS=192.168.8.176,192.168.8.177" \
 -e "KEEPALIVED_VIRTUAL_IPS=ens33:192.168.8.160/24,ens33:192.168.9.160/24" \
 -e "KEEPALIVED_AUTH_PASS=abcd1234" \
--e "KEEPALIVED_COMMAND_LINE_ARGUMENTS=--log-detail --dump-conf --config-id node01"  \
+-e "KEEPALIVED_COMMAND_LINE_ARGUMENTS=--log-detail --dump-conf --config-id node1"  \
 --cap-add=NET_RAW \
 --cap-add=NET_ADMIN \
 --cap-add=NET_BROADCAST \
-c589c
+--entrypoint "/bin/bash" \
+registry.cdjdgm.com/library/keepalived:2.0.20.6 -c "cat"
