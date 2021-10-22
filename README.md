@@ -4,25 +4,25 @@ base on alpine 3.11
 
 environment and default value:
 # 绑定网卡
-KEEPALIVED_BIND_INTERFACE="ens33"
+KEEPALIVED_BIND_INTERFACE=ens33
 # 路由编号(两个节点相同)
-KEEPALIVED_ROUTER_ID="100"
+KEEPALIVED_ROUTER_ID=100
 # 节点前缀
-KEEPALIVED_NODE_PREFIX="node"
+KEEPALIVED_NODE_PREFIX=node
 # 节点状态
-KEEPALIVED_NODE_STATES="BACKUP,BACKUP"
+KEEPALIVED_NODE_STATES=BACKUP,BACKUP
 # 节点优先级
-KEEPALIVED_NODE_PRIORITYS="100,90"
+KEEPALIVED_NODE_PRIORITYS=100,90
 # 节点地址
-KEEPALIVED_NODE_IPS="192.168.8.161,192.168.8.162"
+KEEPALIVED_NODE_IPS=192.168.8.161,192.168.8.162
 # 虚拟地址(dev:ip,dev:ip)
-KEEPALIVED_VIRTUAL_IPS="ens33:192.168.8.160/24,ens33:192.168.9.160/24"
+KEEPALIVED_VIRTUAL_IPS=ens33:192.168.8.160/24,ens33:192.168.9.160/24
 # 认证密码(两个节点相同)
-KEEPALIVED_AUTH_PASS="abcd1234"
+KEEPALIVED_AUTH_PASS=abcd1234
 # 启动参数(config-id=node01,node02)
-KEEPALIVED_COMMAND_LINE_ARGUMENTS="--log-detail --dump-conf --config-id node1"
+KEEPALIVED_COMMAND_LINE_ARGUMENTS=--log-detail --dump-conf --config-id node1
 
-docker run -it --rm --network=host \
+docker run -it --rm --network=host --name=keepalived \
 -e "KEEPALIVED_BIND_INTERFACE=ens33" \
 -e "KEEPALIVED_ROUTER_ID=100" \
 -e "KEEPALIVED_NODE_PREFIX=node" \
@@ -35,5 +35,4 @@ docker run -it --rm --network=host \
 --cap-add=NET_RAW \
 --cap-add=NET_ADMIN \
 --cap-add=NET_BROADCAST \
---entrypoint "/bin/bash" \
-registry.cdjdgm.com/library/keepalived:2.0.20.6 -c "cat"
+keepalived:2.0.20.6
